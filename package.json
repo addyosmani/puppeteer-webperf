@@ -1,0 +1,17 @@
+{
+  "name": "puppeteer-webperf",
+  "version": "1.0.0",
+  "description": "Automating Web Performance measurement with Puppeteer",
+  "main": "index.js",
+  "repository": "https://github.com/addyosmani/puppeteer-webperf.git",
+  "author": "Addy Osmani <addyosmani@gmail.com>",
+  "license": "Apache-2.0",
+  "private": false,
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0"
+  },
+  "scripts": {
+    "lint": "eslint . --fix"
+  }
+}
