@@ -10,7 +10,7 @@ const util = require('util');
 const options = {
   logLevel: 'info',
   disableDeviceEmulation: true,
-  chromeFlags: ['--disable-mobile-emulation']
+  chromeFlags: ['--disable-mobile-emulation'],
 };
 
 async function lighthouseFromPuppeteer(url, options, config = null) {
@@ -20,18 +20,18 @@ async function lighthouseFromPuppeteer(url, options, config = null) {
 
   // Connect chrome-launcher to puppeteer
   const resp = await util.promisify(request)(`http://localhost:${options.port}/json/version`);
-  const { webSocketDebuggerUrl } = JSON.parse(resp.body);
-  const browser = await puppeteer.connect({ browserWSEndpoint: webSocketDebuggerUrl });
+  const {webSocketDebuggerUrl} = JSON.parse(resp.body);
+  const browser = await puppeteer.connect({browserWSEndpoint: webSocketDebuggerUrl});
 
   // Run Lighthouse
-  const { lhr } = await lighthouse(url, options, config);
+  const {lhr} = await lighthouse(url, options, config);
   await browser.disconnect();
   await chrome.kill();
 
   const html = reportGenerator.generateReport(lhr, 'html');
-  fs.writeFile('report.html', html, function (err) {
+  fs.writeFile('report.html', html, function(err) {
     if (err) throw err;
   });
 }
 
-lighthouseFromPuppeteer("https://pptr.dev", options);
+lighthouseFromPuppeteer('https://pptr.dev', options);

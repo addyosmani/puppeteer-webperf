@@ -1,13 +1,13 @@
 const puppeteer = require('puppeteer');
 
-(async() => {
+(async () => {
   const browser = await puppeteer.launch({
-    headless: true
+    headless: true,
   });
   const page = await browser.newPage();
   const options = {
     waitUntil: 'networkidle2',
-    timeout: 30000
+    timeout: 30000,
   };
 
   // Before: Normal navigtation
@@ -17,7 +17,7 @@ const puppeteer = require('puppeteer');
   console.info(metrics);
 
   // After: Navigation with some domains blocked
-  
+
   // Array of third-party domains to block
   const blockedDomains = [
     'https://pagead2.googlesyndication.com',
@@ -29,15 +29,15 @@ const puppeteer = require('puppeteer');
     'https://z.moatads.com',
     'https://cdn.permutive.com'];
   await page.setRequestInterception(true);
-  page.on('request', request => {
-    const url = request.url()
-    if (blockedDomains.some(d => url.startsWith(d))) {
+  page.on('request', (request) => {
+    const url = request.url();
+    if (blockedDomains.some((d) => url.startsWith(d))) {
       request.abort();
     } else {
       request.continue();
     }
   });
-  
+
   await page.goto('https://theverge.com', options);
   await page.screenshot({path: 'after.png', fullPage: true});
 
