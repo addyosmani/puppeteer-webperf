@@ -1,8 +1,6 @@
 # Automating Web Perf measurement with Puppeteer
 
-<div class="objective">
-🕹 <a href="https://pptr.dev">Puppeteer</a> is a Node library which provides a high-level API to control headless Chrome or Chromium over the <a href="https://chromedevtools.github.io/devtools-protocol/">DevTools Protocol</a>.
-</div>
+🕹 <a href="https://pptr.dev">Puppeteer</a> is a Node library which provides a high-level API to control headless Chrome or Chromium over the <a href="https://chromedevtools.github.io/devtools-protocol/">DevTools Protocol</a>. This repository has recipes for automating Web Performance measurement with Puppeteer.
 
 ## Table Of Contents
 
@@ -137,7 +135,7 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 ```
-![Source](devtools-interaction.js)
+[Source](devtools-interaction.js)
 
 ![](/assets/images/interaction@2x.png)
 
@@ -162,15 +160,13 @@ const puppeteer = require('puppeteer');
 })();
 ```
 
-![Source](runtime-perf-metrics.js)
+[Source](runtime-perf-metrics.js)
 
 <img src="/assets/images/Performance-tracing8.png" alt="Runtime performance metrics shown in the terminal"/>
 
 <h3 id="lighthouse-report">Generate a Lighthouse report</h3>
 
-<div class="objective">
 💡🏠 Lighthouse is an engine for analyzing web apps and web pages, collecting modern performance metrics and insights on developer best practices. It's available in the Chrome DevTools, PageSpeed Insights, a CLI and as a consumable module.
-</div>
 
 Generate a Lighthouse report for a URL and output it to a local HTML file. For more details, see the official guide to [using Puppeteer with Lighthouse](https://github.com/GoogleChrome/lighthouse/blob/master/docs/puppeteer.md).
 
@@ -216,7 +212,7 @@ async function lighthouseFromPuppeteer(url, options, config = null) {
 lighthouseFromPuppeteer("https://pptr.dev", options);
 ```
 
-![Source](lighthouse-report.js)
+[Source](lighthouse-report.js)
 
 <img src="/assets/images/Performance-tracing3.png" alt="Lighthouse report generation from Puppeteer"/>
 
@@ -271,7 +267,7 @@ async function lighthouseFromPuppeteer(url, options, config = null) {
 
 lighthouseFromPuppeteer("https://bbc.com", options);
 ```
-![Source](lighthouse-metrics.js)
+[Source](lighthouse-metrics.js)
 
 ![](/assets/images/lh-metrics@2x.png)
 
@@ -279,7 +275,7 @@ lighthouseFromPuppeteer("https://bbc.com", options);
 
 If you need to throttle the network connection, use `Network.emulateNetworkConditions` via the Chrome DevTools Protocol. You can borrow configuration details for what is used in the DevTools Network panel for emulation details.
 
-<div class="objective">🚨 Real network performance can be impacted by latency to towers, traffic patterns and the current radio activity. The <a href="https://github.com/GoogleChrome/lighthouse/blob/master/docs/throttling.md">Lighthouse guide to network throttling</a> covers in more detail what the differences are between simulated, request-level and packet-level throttling.
+🚨 Real network performance can be impacted by latency to towers, traffic patterns and the current radio activity. The <a href="https://github.com/GoogleChrome/lighthouse/blob/master/docs/throttling.md">Lighthouse guide to network throttling</a> covers in more detail what the differences are between simulated, request-level and packet-level throttling.
 
 You can use <a href="https://github.com/GoogleChrome/lighthouse/blob/master/docs/throttling.md#using-lighthouse-with-comcast">Lighthouse with the comcast module</a> for packet-level throttling.
 </div>
@@ -310,7 +306,7 @@ const puppeteer = require('puppeteer');
 })();
 ```
 
-![Source](throttle-network.js)
+[Source](throttle-network.js)
 
 You can find details on the presets DevTools supports for Slow and Fast 3G in the [official source](https://github.com/ChromeDevTools/devtools-frontend/blob/80c102878fd97a7a696572054007d40560dcdd21/front_end/sdk/NetworkManager.js#L252-L274). If you are looking for the older presets around Regular 4G, WiFi etc, they are captured in [network throttling in Puppeteer](https://fdalvi.github.io/blog/2018-02-05-puppeteer-network-throttle/).
 
@@ -318,8 +314,7 @@ You can find details on the presets DevTools supports for Slow and Fast 3G in th
 
 CPU throttling allows you to simulate how a page performs on slower mobile devices. This can be done using `Network.emulateNetworkConditions` via the Chrome DevTools Protocol.
 
-<div class="objective">
-🚨 Real device CPU performance is impacted by many factors that are not trivial to emulate via the Chrome DevTools Protocol / Puppeteer. e.g core count, L1/L2 cache, thermal throttling impacting performance, architecture etc. Simulating CPU performance can be a good guideline, but ideally also verify any numbers you see on a real mobile device.</div>
+🚨 Real device CPU performance is impacted by many factors that are not trivial to emulate via the Chrome DevTools Protocol / Puppeteer. e.g core count, L1/L2 cache, thermal throttling impacting performance, architecture etc. Simulating CPU performance can be a good guideline, but ideally also verify any numbers you see on a real mobile device.
 
 Building on top of Slow 3G network throttling, slow CPU throttling (4x slowdown - close to a median-quality device like the Moto G4), is shown below. 
 </div>
@@ -348,7 +343,7 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 ```
-![Source](throttle-network-cpu.js)
+[Source](throttle-network-cpu.js)
 
 <h3 id="javascript-disabled">Test your site renders with JavaScript disabled</h3>
 
@@ -379,7 +374,7 @@ const puppeteer = require('puppeteer');
     await browser.close();
 })();
 ```
-![Source](javascript-disabled.js)
+[Source](javascript-disabled.js)
 
 <img src="/assets/images/Performance-tracing7.png" alt="Reddit rendered with JS disabled"/>
 
@@ -399,7 +394,7 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 ```
-![Source](navigation-timing.js)
+[Source](navigation-timing.js)
 
 <img src="/assets/images/Performance-tracing4.png" alt="Navigation Timing API timings in iTerm from Puppeteer"/>
 
@@ -409,9 +404,7 @@ Metric: [First Contentful Paint - web.dev](https://web.dev/fcp)
 
 First Contentful Paint (FCP) metric measures the time from a page starting to load to when any part of the page's content is rendered on the screen. 
 
-<div class="objective">
 The <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline">Performance Timeline API</a> supports client-side latency measurements. <code>performance.getEntriesByName</code> returns recorded performance entries based on the provided name (e.g "first-paint") and optionally the performance type.
-</div>
 
 ```js
 const puppeteer = require('puppeteer');
@@ -442,7 +435,7 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 ```
-![Source](first-contentful-paint.js)
+[Source](first-contentful-paint.js)
 
 <h3 id="largest-contentful-paint">Measure Largest Contentful Paint (LCP) w/PerformanceObserver</h3>
 
@@ -450,13 +443,9 @@ Metric: [Largest Contentful Paint - web.dev](https://web.dev/lcp)
 
 The Largest Contentful Paint (LCP) metric reports render time for the largest content element visible in the viewport.
 
-<div class="objective">
 🚨 Lighthouse 6.0 onwards supports measuring LCP and CLS in the lab using the approach in <a href="#lighthouse-metrics">Lighthouse metrics</a> covered earlier. PerformanceObserver is typically used to measure these metrics in the field.
-</div>
 
-<div class="objective">
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver"><code>PerformanceObserver</code></a> allows you to observe performance measurement events and get notified of new performance entries as they are recorded in the browser's performance timeline. When measuring modern metrics like LCP or CLS with <code>PerformanceObserver</code>, you probably want to wait until the page's <a href="https://developers.google.com/web/updates/2018/07/page-lifecycle-api">lifecycle state</a> has changed to hidden. This ensures that you log the most latest entry.
-</div>
 
 [Full Puppeteer snippet](https://gist.github.com/addyosmani/c053f68aead473d7585b45c9e8dce31e)
 
@@ -526,7 +515,7 @@ async function getLCP(url) {
 
 getLCP("https://pptr.dev").then(lcp => console.log("LCP is: " + lcp));
 ```
-![Source](largest-contentful-paint.js)
+[Source](largest-contentful-paint.js)
 
 <img src="/assets/images/Performance-tracing9.png" alt="Largest Contentful Paint"/>
 
@@ -537,13 +526,9 @@ Metric: [Cumulative Layout Shift - web.dev](https://web.dev/cls)
 
 The Cumulative Layout Shift (CLS) metric measures the sum of individual layout shift scores for each unexpected layout shift that occurs between when the page begins loading and when its lifecycle state changes to hidden.
 
-<div class="objective">
 🚨 Lighthouse 6.0 onwards supports measuring CLS and LCP in the lab using the approach in <a href="#lighthouse-metrics">Lighthouse metrics</a> covered earlier. PerformanceObserver is typically used to measure these metrics in the field.
-</div>
 
-<div class="objective">
 <a href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver"><code>PerformanceObserver</code></a> allows you to observe performance measurement events and get notified of new performance entries as they are recorded in the browser's performance timeline. When measuring modern metrics like CLS or LCP with <code>PerformanceObserver</code>, you probably want to wait until the page's <a href="https://developers.google.com/web/updates/2018/07/page-lifecycle-api">lifecycle state</a> has changed to hidden. This ensures that you log the most latest entry.
-</div>
 
 [Full Puppeteer snippet](https://gist.github.com/martinschierle/0b43f3a56da39aa5aa8f8f9dc431f903).
 
@@ -617,15 +602,13 @@ async function getCLS(url) {
 
 getCLS("https://pptr.dev").then(cls => console.log("CLS is: " + cls));
 ```
-![Source](cumulative-layout-shift.js)
+[Source](cumulative-layout-shift.js)
 
 <img src="/assets/images/Performance-tracing10.png" alt="Cumulative Layout Shift"/>
 
 <h3 id="nextjs-metrics">Measure SPA metrics with Next.js</h3>
 
-<div class="objective">
 The <a href="https://web.dev/custom-metrics/">User Timing API</a> is a general purpose measurement API for time-based metrics. It allows you to arbitrarily mark points in time and then later measure the duration between those marks using <code>performance.mark()</code> and <code>performance.measure</code>.
-</div>
 
 Outside of the performance metrics made available via the Navigation Timing API, single-page apps (SPA) often also have custom metrics for tracking other key moments. In Next.js, these could correspond to Time-to-Hydrate, SPA route transitions and so on.
 
@@ -699,7 +682,7 @@ const puppeteer = require('puppeteer');
     await browser.close();
 })();
 ```
-![Source](nextjs-metrics.js)
+[Source](nextjs-metrics.js)
 
 <h3 id="devtools-frame-rate">Get DevTools-specific metrics: Frames Per Second</h3>
 
@@ -727,7 +710,7 @@ const puppeteer = require('puppeteer');
     await browser.close();
 })();
 ```
-![Source](devtools-frame-rate.js)
+[Source](devtools-frame-rate.js)
 
 <img src="/assets/images/Performance-tracing6a.png" alt="FPS meter from DevTools rendered via Puppeteer"/>
 
@@ -786,7 +769,7 @@ const countObjects = async (page) => {
     await browser.close();
 })();
 ```
-![Source](measure-memory-leaks.js)
+[Source](measure-memory-leaks.js)
 
 <h3 id="request-interception">Override requests with Request Interception</h3>
 
@@ -819,7 +802,7 @@ import puppeteer from 'puppeteer';
     await browser.close();
 })();
 ```
-![Source](request-interception-block-images.js)
+[Source](request-interception-block-images.js)
 
 <h4>Replace a remote resource with a local one</h4>
 
@@ -867,7 +850,7 @@ const path = require('path');
 
 })();
 ```
-![Source](request-interception-replace-resources.js)
+[Source](request-interception-replace-resources.js)
 
 ![Puppeteer comparison before and after request interception](/assets/images/pptr-comparison.jpg)
 
@@ -930,7 +913,7 @@ const puppeteer = require('puppeteer');
   await browser.close();
 })();
 ```
-![Source](request-interception-block-third-parties.js)
+[Source](request-interception-block-third-parties.js)
 
 ![The Verge before/after domain blocking](/assets/images/comparison-before-after@2x.jpg)
 
