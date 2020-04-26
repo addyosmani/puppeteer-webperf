@@ -1,4 +1,3 @@
-const fs = require('fs');
 const lighthouse = require('lighthouse');
 const puppeteer = require('puppeteer');
 
@@ -31,15 +30,15 @@ async function lighthouseFromPuppeteer(url, options, config = null) {
   const json = reportGenerator.generateReport(lhr, 'json');
 
   const audits = JSON.parse(json).audits; // Lighthouse audits
-  const first_contentful_paint = audits['first-contentful-paint'].displayValue;
-  const total_blocking_time = audits['total-blocking-time'].displayValue;
-  const time_to_interactive = audits['interactive'].displayValue;
+  const firstContentfulPaint = audits['first-contentful-paint'].displayValue;
+  const totalBlockingTime = audits['total-blocking-time'].displayValue;
+  const timeToInteractive = audits['interactive'].displayValue;
 
   console.log(`\n
      Lighthouse metrics: 
-     🎨 First Contentful Paint: ${first_contentful_paint}, 
-     ⌛️ Total Blocking Time: ${total_blocking_time},
-     👆 Time To Interactive: ${time_to_interactive}`);
+     🎨 First Contentful Paint: ${firstContentfulPaint}, 
+     ⌛️ Total Blocking Time: ${totalBlockingTime},
+     👆 Time To Interactive: ${timeToInteractive}`);
 }
 
 lighthouseFromPuppeteer('https://bbc.com', options);

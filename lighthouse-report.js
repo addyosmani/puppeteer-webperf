@@ -21,7 +21,9 @@ async function lighthouseFromPuppeteer(url, options, config = null) {
   // Connect chrome-launcher to puppeteer
   const resp = await util.promisify(request)(`http://localhost:${options.port}/json/version`);
   const {webSocketDebuggerUrl} = JSON.parse(resp.body);
-  const browser = await puppeteer.connect({browserWSEndpoint: webSocketDebuggerUrl});
+  const browser = await puppeteer.connect({
+    browserWSEndpoint: webSocketDebuggerUrl,
+  });
 
   // Run Lighthouse
   const {lhr} = await lighthouse(url, options, config);

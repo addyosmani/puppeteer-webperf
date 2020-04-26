@@ -8,7 +8,8 @@ const puppeteer = require('puppeteer');
   await page.setViewport({width: 1440, height: 714});
 
   await navigationPromise;
-  const selector = 'body > sidebar-component > sidebar-item:nth-child(3) > .pptr-sidebar-item';
+  const selector = `body > sidebar-component > sidebar-item:nth-child(3) 
+  > .pptr-sidebar-item`;
   await page.waitForSelector(selector);
   await page.tracing.start({path: 'trace.json', screenshots: true});
   await page.click(selector);

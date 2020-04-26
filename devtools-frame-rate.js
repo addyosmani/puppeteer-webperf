@@ -1,7 +1,9 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const args = await puppeteer.defaultArgs().filter((flag) => flag !== '--enable-automation');
+  const args = await puppeteer
+      .defaultArgs()
+      .filter((flag) => flag !== '--enable-automation');
   const browser = await puppeteer.launch({
     headless: false,
     devtools: true,

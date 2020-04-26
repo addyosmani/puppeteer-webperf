@@ -18,12 +18,13 @@ const fs = require('fs');
       typeof x.args.snapshot !== 'undefined'
   ));
 
-  traceScreenshots.forEach(function(snap, index) {
-    fs.writeFile(`trace-screenshot-${index}.png`, snap.args.snapshot, 'base64', function(err) {
-      if (err) {
-        console.log('writeFile error', err);
-      }
-    });
+  traceScreenshots.forEach((snap, index) => {
+    fs.writeFile(`trace-screenshot-${index}.png`,
+        snap.args.snapshot, 'base64', (err) => {
+          if (err) {
+            console.log('writeFile error', err);
+          }
+        });
   });
 
   await browser.close();
