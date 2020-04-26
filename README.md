@@ -967,6 +967,32 @@ const puppeteer = require('puppeteer');
 
 [Source](code-coverage.js)
 
+Output preview:
+
+```sh
+  {
+    url: 'https://pptr.dev/index.js',
+    type: 'js',
+    usedBytes: 59370,
+    totalBytes: 141703,
+    percentUsed: '41.90%'
+  },
+  {
+    url: 'https://www.googletagmanager.com/gtag/js?id=UA-106086244-2',
+    type: 'js',
+    usedBytes: 20646,
+    totalBytes: 81644,
+    percentUsed: '25.29%'
+  },
+  {
+    url: 'https://pptr.dev/style.css',
+    type: 'css',
+    usedBytes: 1409,
+    totalBytes: 14326,
+    percentUsed: '9.84%'
+  }
+```
+
 
 ## Read more
 
