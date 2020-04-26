@@ -23,6 +23,7 @@
 * [Measure memory leaks](#measure-memory-leaks)
 * [Override requests with Request Interception](#request-interception)
 * [Block third-party domains](#block-third-parties)
+* [Code Coverage for JavaScript and CSS](#code-coverage)
 
 
 <h3 id="devtools-profile">Get a DevTools performance trace for a page load</h3>
@@ -916,6 +917,56 @@ const puppeteer = require('puppeteer');
 [Source](request-interception-block-third-parties.js)
 
 ![The Verge before/after domain blocking](/assets/images/comparison-before-after@2x.jpg)
+
+<h3 id="code-coverage">Code Coverage for JavaScript and CSS</h3>
+
+Puppeteer API: [page.coverage.startJSCoverage()](https://pptr.dev/#?product=Puppeteer&version=v3.0.1&show=api-coveragestartjscoverageoptions)
+
+```js
+const puppeteer = require('puppeteer');
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  // Gather coverage for JS and CSS files
+  await Promise.all([page.coverage.startJSCoverage(), page.coverage.startCSSCoverage()]);
+
+  await page.goto('https://pptr.dev');
+
+  // Stops the coverage gathering
+  const [jsCoverage, cssCoverage] = await Promise.all([
+    page.coverage.stopJSCoverage(),
+    page.coverage.stopCSSCoverage(),
+  ]);
+
+  // Calculates # bytes being used based on the coverage
+  const calculateUsedBytes = (type, coverage) =>
+    coverage.map(({url, ranges, text}) => {
+      let usedBytes = 0;
+
+      ranges.forEach((range) => (usedBytes += range.end - range.start - 1));
+
+      return {
+        url,
+        type,
+        usedBytes,
+        totalBytes: text.length,
+        percentUsed: `${(usedBytes / text.length * 100).toFixed(2)}%`
+      };
+    });
+
+  console.info([
+    ...calculateUsedBytes('js', jsCoverage),
+    ...calculateUsedBytes('css', cssCoverage),
+  ]);
+
+  await browser.close();
+})();
+```
+
+[Source](code-coverage.js)
+
 
 ## Read more
 
