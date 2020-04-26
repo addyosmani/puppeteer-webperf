@@ -13,5 +13,8 @@
   },
   "scripts": {
     "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "puppeteer": "^3.0.1"
   }
 }
