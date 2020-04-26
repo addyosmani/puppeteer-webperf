@@ -10,7 +10,10 @@ const Good3G = {
 
 const phone = devices['Nexus 5X'];
 
-function calcJank() {
+/**
+ * Measure layout shifts
+ */
+function calculateShifts() {
   window.cumulativeLayoutShiftScore = 0;
 
   const observer = new PerformanceObserver((list) => {
@@ -34,6 +37,11 @@ function calcJank() {
 }
 
 
+/**
+ * Get cumulative layout shift for a URL
+ * @param {String} url - url to measure
+ * @return {Number} - cumulative layout shift
+ */
 async function getCLS(url) {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox'],
@@ -51,7 +59,7 @@ async function getCLS(url) {
     await page.emulate(phone);
     // inject a function with the code from
     // https://web.dev/cls/#measure-cls-in-javascript
-    await page.evaluateOnNewDocument(calcJank);
+    await page.evaluateOnNewDocument(calculateShifts);
     await page.goto(url, {waitUntil: 'load', timeout: 60000});
 
     const cls = await page.evaluate(() => {

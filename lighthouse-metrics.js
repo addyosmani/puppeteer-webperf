@@ -12,6 +12,14 @@ const options = {
   chromeFlags: ['--disable-mobile-emulation'],
 };
 
+/**
+ *
+ * Perform a Lighthouse run
+ * @param {String} url - url The URL to test
+ * @param {Object} options - Optional settings for the Lighthouse run
+ * @param {Object} [config=null] - Configuration for the Lighthouse run. If
+ * not present, the default config is used.
+ */
 async function lighthouseFromPuppeteer(url, options, config = null) {
   // Launch chrome using chrome-launcher
   const chrome = await chromeLauncher.launch(options);

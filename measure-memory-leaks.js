@@ -1,11 +1,11 @@
+/* eslint-disable */
 const puppeteer = require('puppeteer');
 
 // Helper by @chrisguttandin
 const countObjects = async (page) => {
   const prototypeHandle = await page.evaluateHandle(() => Object.prototype);
   const objectsHandle = await page.queryObjects(prototypeHandle);
-  const numberOfObjects = await page.evaluate((instances) =>
-    instances.length, objectsHandle);
+  const numberOfObjects = await page.evaluate((instances) => instances.length, objectsHandle);
 
   await Promise.all([
     prototypeHandle.dispose(),

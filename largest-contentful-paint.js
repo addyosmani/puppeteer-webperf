@@ -10,7 +10,10 @@ const Good3G = {
 
 const phone = devices['Nexus 5X'];
 
-function calcLCP() {
+/**
+ * Measure LCP
+ */
+function calculateLCP() {
   window.largestContentfulPaint = 0;
 
   const observer = new PerformanceObserver((entryList) => {
@@ -30,6 +33,11 @@ function calcLCP() {
   });
 }
 
+/**
+ * Get LCP for a provided URL
+ * @param {*} url
+ * @return {Number} lcp
+ */
 async function getLCP(url) {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox'],
@@ -46,7 +54,7 @@ async function getLCP(url) {
     await client.send('Emulation.setCPUThrottlingRate', {rate: 4});
     await page.emulate(phone);
 
-    await page.evaluateOnNewDocument(calcLCP);
+    await page.evaluateOnNewDocument(calculateLCP);
     await page.goto(url, {waitUntil: 'load', timeout: 60000});
 
     const lcp = await page.evaluate(() => {
