@@ -506,8 +506,8 @@ async function getLCP(url) {
     const lcp = await page.evaluate(() => {
       return window.largestContentfulPaint;
     });
-    return lcp;
     browser.close();
+    return lcp;
   } catch (error) {
     console.log(error);
     browser.close();
