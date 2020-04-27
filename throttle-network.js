@@ -8,7 +8,7 @@ const puppeteer = require('puppeteer');
   await client.send('Network.enable');
   // Simulated network throttling (Slow 3G)
   await client.send('Network.emulateNetworkConditions', {
-  // Network connectivity is absent
+    // Network connectivity is absent
     'offline': false,
     // Download speed (bytes/s)
     'downloadThroughput': 500 * 1024 / 8 * .8,

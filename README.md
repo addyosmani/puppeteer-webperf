@@ -287,22 +287,22 @@ Emulating a Slow 3G network is demonstrated below.
 const puppeteer = require('puppeteer');
 
 (async () => {
-  let browser = await puppeteer.launch();
-  let page = await browser.newPage();
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
   const client = await page.target().createCDPSession();
   await client.send('Network.enable');
   // Simulated network throttling (Slow 3G)
   await client.send('Network.emulateNetworkConditions', {
-  // Network connectivity is absent
-  'offline': false,
-  // Download speed (bytes/s)
-  'downloadThroughput': 500 * 1024 / 8 * .8,
-  // Upload speed (bytes/s)
-  'uploadThroughput': 500 * 1024 / 8 * .8,
-  // Latency (ms)
-  'latency': 400 * 5
-});
+    // Network connectivity is absent
+    'offline': false,
+    // Download speed (bytes/s)
+    'downloadThroughput': 500 * 1024 / 8 * .8,
+    // Upload speed (bytes/s)
+    'uploadThroughput': 500 * 1024 / 8 * .8,
+    // Latency (ms)
+    'latency': 400 * 5
+  });
   await browser.close();
 })();
 ```
@@ -324,22 +324,22 @@ Building on top of Slow 3G network throttling, slow CPU throttling (4x slowdown 
 const puppeteer = require('puppeteer');
 
 (async () => {
-  let browser = await puppeteer.launch();
-  let page = await browser.newPage();
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
   const client = await page.target().createCDPSession();
   await client.send('Network.enable');
   // Simulated network throttling (Slow 3G)
   await client.send('Network.emulateNetworkConditions', {
-  // Network connectivity is absent
-  'offline': false,
-  // Download speed (bytes/s)
-  'downloadThroughput': 500 * 1024 / 8 * .8,
-  // Upload speed (bytes/s)
-  'uploadThroughput': 500 * 1024 / 8 * .8,
-  // Latency (ms)
-  'latency': 400 * 5
-});
+    // Network connectivity is absent
+    'offline': false,
+    // Download speed (bytes/s)
+    'downloadThroughput': 500 * 1024 / 8 * .8,
+    // Upload speed (bytes/s)
+    'uploadThroughput': 500 * 1024 / 8 * .8,
+    // Latency (ms)
+    'latency': 400 * 5
+  });
   await client.send('Emulation.setCPUThrottlingRate', { rate: 4 });
   await browser.close();
 })();
@@ -357,22 +357,22 @@ Puppeteer API: [setRequestInterception()](https://pptr.dev/#?product=Puppeteer&s
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.setRequestInterception(true);
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.setRequestInterception(true);
 
-    page.on('request', request => {
-        if (request.resourceType() === 'script') {
-            request.abort();
-        } else {
-            request.continue();
-        }
-    });
+  page.on('request', request => {
+    if (request.resourceType() === 'script') {
+      request.abort();
+    } else {
+      request.continue();
+    }
+  });
 
-    await page.goto('https://reddit.com');
-    await page.screenshot({ path: 'pptr-nojs.png' });
+  await page.goto('https://reddit.com');
+  await page.screenshot({ path: 'pptr-nojs.png' });
 
-    await browser.close();
+  await browser.close();
 })();
 ```
 [Source](javascript-disabled.js)
@@ -389,7 +389,7 @@ const puppeteer = require('puppeteer');
   const page = await browser.newPage();
   await page.goto('https://pptr.dev');
   const performanceTiming = JSON.parse(
-      await page.evaluate(() => JSON.stringify(window.performance.timing))
+    await page.evaluate(() => JSON.stringify(window.performance.timing))
   );
   console.log('performanceTiming', performanceTiming)
   await browser.close();
@@ -418,13 +418,13 @@ const puppeteer = require('puppeteer');
   
   await navigationPromise;
 
-  let firstPaint = JSON.parse(
+  const firstPaint = JSON.parse(
     await page.evaluate(() =>
       JSON.stringify(performance.getEntriesByName('first-paint'))
     )
   );
 
-  let firstContentfulPaint = JSON.parse(
+  const firstContentfulPaint = JSON.parse(
     await page.evaluate(() =>
       JSON.stringify(performance.getEntriesByName('first-contentful-paint'))
     )
@@ -455,63 +455,63 @@ const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 
 const Good3G = {
-    'offline': false,
-    'downloadThroughput': 1.5 * 1024 * 1024 / 8,
-    'uploadThroughput': 750 * 1024 / 8,
-    'latency': 40
+  'offline': false,
+  'downloadThroughput': 1.5 * 1024 * 1024 / 8,
+  'uploadThroughput': 750 * 1024 / 8,
+  'latency': 40
 };
 
 const phone = devices['Nexus 5X'];
 
 function calcLCP() {
-    window.largestContentfulPaint = 0;
+  window.largestContentfulPaint = 0;
 
-    const observer = new PerformanceObserver((entryList) => {
-        const entries = entryList.getEntries();
-        const lastEntry = entries[entries.length - 1];
-        window.largestContentfulPaint = lastEntry.renderTime || lastEntry.loadTime;
-    });
+  const observer = new PerformanceObserver((entryList) => {
+    const entries = entryList.getEntries();
+    const lastEntry = entries[entries.length - 1];
+    window.largestContentfulPaint = lastEntry.renderTime || lastEntry.loadTime;
+  });
 
-    observer.observe({ type: 'largest-contentful-paint', buffered: true });
+  observer.observe({ type: 'largest-contentful-paint', buffered: true });
 
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
-            observer.takeRecords();
-            observer.disconnect();
-            console.log('LCP:', window.largestContentfulPaint);
-        }
-    });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      observer.takeRecords();
+      observer.disconnect();
+      console.log('LCP:', window.largestContentfulPaint);
+    }
+  });
 }
 
 
 async function getLCP(url) {
-    const browser = await puppeteer.launch({
-        args: ['--no-sandbox'],
-        timeout: 10000
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox'],
+    timeout: 10000
+  });
+
+  try {
+    const page = await browser.newPage();
+    const client = await page.target().createCDPSession();
+
+    await client.send('Network.enable');
+    await client.send('ServiceWorker.enable');
+    await client.send('Network.emulateNetworkConditions', Good3G);
+    await client.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+    await page.emulate(phone);
+
+    await page.evaluateOnNewDocument(calcLCP);
+    await page.goto(url, { waitUntil: 'load', timeout: 60000 });
+
+    const lcp = await page.evaluate(() => {
+      return window.largestContentfulPaint;
     });
-
-    try {
-        const page = await browser.newPage();
-        const client = await page.target().createCDPSession();
-
-        await client.send('Network.enable');
-        await client.send('ServiceWorker.enable');
-        await client.send('Network.emulateNetworkConditions', Good3G);
-        await client.send('Emulation.setCPUThrottlingRate', { rate: 4 });
-        await page.emulate(phone);
-
-        await page.evaluateOnNewDocument(calcLCP);
-        await page.goto(url, { waitUntil: 'load', timeout: 60000 });
-
-        let lcp = await page.evaluate(() => {
-            return window.largestContentfulPaint;
-        });
-        return lcp;
-        browser.close();
-    } catch (error) {
-        console.log(error);
-        browser.close();
-    }
+    browser.close();
+    return lcp;
+  } catch (error) {
+    console.log(error);
+    browser.close();
+  }
 }
 
 getLCP("https://pptr.dev").then(lcp => console.log("LCP is: " + lcp));
@@ -538,11 +538,11 @@ const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 
 const Good3G = {
-    'offline': false,
-    'downloadThroughput': 1.5 * 1024 * 1024 / 8,
-    'uploadThroughput': 750 * 1024 / 8,
-    'latency': 40
-  };
+  'offline': false,
+  'downloadThroughput': 1.5 * 1024 * 1024 / 8,
+  'uploadThroughput': 750 * 1024 / 8,
+  'latency': 40
+};
   
 const phone = devices['Nexus 5X'];
 
@@ -561,20 +561,20 @@ function calcJank() {
   observer.observe({type: 'layout-shift', buffered: true});
 
   document.addEventListener('visibilitychange', () => {
-   if (document.visibilityState === 'hidden') {
-     observer.takeRecords();
-     observer.disconnect();
-     console.log('CLS:', window.cumulativeLayoutShiftScore);
-   }
+    if (document.visibilityState === 'hidden') {
+      observer.takeRecords();
+      observer.disconnect();
+      console.log('CLS:', window.cumulativeLayoutShiftScore);
+    }
   });
 }
 
 
 async function getCLS(url) {
-   const browser = await puppeteer.launch({ 
-     args: ['--no-sandbox'],
-     timeout: 10000
-   });
+  const browser = await puppeteer.launch({ 
+    args: ['--no-sandbox'],
+    timeout: 10000
+  });
 
   try {
     const page = await browser.newPage();
@@ -590,11 +590,11 @@ async function getCLS(url) {
     await page.evaluateOnNewDocument(calcJank);  
     await page.goto(url, { waitUntil: 'load', timeout: 60000});
 
-    let cls = await page.evaluate(() => { 
+    const cls = await page.evaluate(() => { 
         return window.cumulativeLayoutShiftScore;
     });
-    return cls;
     browser.close();
+    return cls;
   } catch (error) {
     console.log(error);
     browser.close();
@@ -619,68 +619,68 @@ Next.js recently added the [https://github.com/zeit/next.js/pull/8480](unstable_
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const browser = await puppeteer.launch()
-    const page = await browser.newPage()
-    let selector = '';
-    page.on('load', () => console.log("Loaded: " + page.url()));
-    page.on('framenavigated', frame => {
-        console.log(`new url: ${frame.url()}`);
-    });
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+  let selector = '';
+  page.on('load', () => console.log("Loaded: " + page.url()));
+  page.on('framenavigated', frame => {
+    console.log(`new url: ${frame.url()}`);
+  });
 
-    const navigationPromise = page.waitForNavigation({
-        waitUntil: 'networkidle2'
-    })
+  const navigationPromise = page.waitForNavigation({
+    waitUntil: 'networkidle2'
+  })
 
-    // Navigate to random Next.js page
-    await page.goto('https://new-app-3-op9eiblak.now.sh/')
+  // Navigate to random Next.js page
+  await page.goto('https://new-app-3-op9eiblak.now.sh/')
 
-    console.log('\n==== localStorage hydration entry ====\n');
-    const hydrationData = await page.evaluate(() => {
-        const data = {
-            'before-hydrate-mark': localStorage.getItem('beforeRender'),
-            'after-hydrate-mark': Number(localStorage.getItem('beforeRender')) + Number(localStorage.getItem('Next.js-hydration')),
-            'hydration-duration': localStorage.getItem('Next.js-hydration'),
-        };
-        return data;
-    });
+  console.log('\n==== localStorage hydration entry ====\n');
+  const hydrationData = await page.evaluate(() => {
+    const data = {
+      'before-hydrate-mark': localStorage.getItem('beforeRender'),
+      'after-hydrate-mark': Number(localStorage.getItem('beforeRender')) + Number(localStorage.getItem('Next.js-hydration')),
+      'hydration-duration': localStorage.getItem('Next.js-hydration'),
+    };
+    return data;
+  });
 
-    console.log(hydrationData);
+  console.log(hydrationData);
 
-    await page.screenshot({
-        path: 'home-page.png',
-        fullPage: true
-    });
+  await page.screenshot({
+    path: 'home-page.png',
+    fullPage: true
+  });
 
-    await navigationPromise;
+  await navigationPromise;
 
-    // Navigate to the Blog
-    selector = '#__next > div > nav > ul > li:nth-child(1) > a';
-    await Promise.all([
-        await page.waitForSelector(selector),
-        await page.click(selector, {
-            delay: 300
-        }),
-        await page.waitFor(4000),
-        await navigationPromise
-    ]);
+  // Navigate to the Blog
+  selector = '#__next > div > nav > ul > li:nth-child(1) > a';
+  await Promise.all([
+    await page.waitForSelector(selector),
+    await page.click(selector, {
+      delay: 300
+    }),
+    await page.waitFor(4000),
+    await navigationPromise
+  ]);
 
-    console.log('\n==== localStorage route change performance entries ====\n');
-    const routeChangeData = await page.evaluate(() => {
-        const data = {
-            'link-click-to-render-start-duration': localStorage.getItem('Next.js-route-change-to-render'),
-            'render-duration': localStorage.getItem('Next.js-render')
-        };
-        return data;
-    });
+  console.log('\n==== localStorage route change performance entries ====\n');
+  const routeChangeData = await page.evaluate(() => {
+    const data = {
+      'link-click-to-render-start-duration': localStorage.getItem('Next.js-route-change-to-render'),
+      'render-duration': localStorage.getItem('Next.js-render')
+    };
+    return data;
+  });
 
-    console.log(routeChangeData);
+  console.log(routeChangeData);
 
-    await page.screenshot({
-        path: 'blog-page.png',
-        fullPage: true
-    });
+  await page.screenshot({
+    path: 'blog-page.png',
+    fullPage: true
+  });
 
-    await browser.close();
+  await browser.close();
 })();
 ```
 [Source](nextjs-metrics.js)
@@ -695,20 +695,20 @@ Puppeteer API: [createCDPSession()](https://pptr.dev/#?product=Puppeteer&show=ap
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const args = await puppeteer.defaultArgs().filter(flag => flag !== '--enable-automation');
-    const browser = await puppeteer.launch({
-        headless: false,
-        devtools: true,
-        ignoreDefaultArgs: true,
-        args
-    });
-    const page = await browser.newPage();
-    const devtoolsProtocolClient = await page.target().createCDPSession();
-    await devtoolsProtocolClient.send('Overlay.setShowFPSCounter', { show: true });
-    await page.goto('https://pptr.dev');
-    await page.screenshot({ path: './image.jpg', type: 'jpeg' });
-    await page.close();
-    await browser.close();
+  const args = await puppeteer.defaultArgs().filter(flag => flag !== '--enable-automation');
+  const browser = await puppeteer.launch({
+    headless: false,
+    devtools: true,
+    ignoreDefaultArgs: true,
+    args
+  });
+  const page = await browser.newPage();
+  const devtoolsProtocolClient = await page.target().createCDPSession();
+  await devtoolsProtocolClient.send('Overlay.setShowFPSCounter', { show: true });
+  await page.goto('https://pptr.dev');
+  await page.screenshot({ path: './image.jpg', type: 'jpeg' });
+  await page.close();
+  await browser.close();
 })();
 ```
 [Source](devtools-frame-rate.js)
@@ -728,46 +728,46 @@ const puppeteer = require('puppeteer');
 
 // Helper by @chrisguttandin
 const countObjects = async (page) => {
-    const prototypeHandle = await page.evaluateHandle(() => Object.prototype);
-    const objectsHandle = await page.queryObjects(prototypeHandle);
-    const numberOfObjects = await page.evaluate((instances) => instances.length, objectsHandle);
+  const prototypeHandle = await page.evaluateHandle(() => Object.prototype);
+  const objectsHandle = await page.queryObjects(prototypeHandle);
+  const numberOfObjects = await page.evaluate((instances) => instances.length, objectsHandle);
 
-    await Promise.all([
-        prototypeHandle.dispose(),
-        objectsHandle.dispose()
-    ]);
+  await Promise.all([
+    prototypeHandle.dispose(),
+    objectsHandle.dispose()
+  ]);
 
-    return numberOfObjects;
+  return numberOfObjects;
 };
 
 (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.createIncognitoBrowserContext();
+  const browser = await puppeteer.launch();
+  const page = await browser.createIncognitoBrowserContext();
 
-    const numberOfObjects = await countObjects(page);
-    console.log(numberOfObjects);
+  const numberOfObjects = await countObjects(page);
+  console.log(numberOfObjects);
 
-    await page.evaluate(() => {
-        class SomeObject {
-            constructor () {
-              this.numbers = {}
-              for (let i = 0; i < 1000; i++) {
-                this.numbers[Math.random()] = Math.random()
-              }
-            }
+  await page.evaluate(() => {
+    class SomeObject {
+      constructor () {
+        this.numbers = {}
+        for (let i = 0; i < 1000; i++) {
+          this.numbers[Math.random()] = Math.random()
         }
-        const someObject = new SomeObject();
-        const onMessage = () => { /* ... */ };
-        window.addEventListener('message', onMessage);
-    });
+      }
+    }
+    const someObject = new SomeObject();
+    const onMessage = () => { /* ... */ };
+    window.addEventListener('message', onMessage);
+  });
 
-    const numberOfObjectsAfter = await countObjects(page);
-    console.log(numberOfObjectsAfter);
+  const numberOfObjectsAfter = await countObjects(page);
+  console.log(numberOfObjectsAfter);
 
-    // Check if the number of retained objects is expected
-    // expect(await countObjects(page)).to.equal(0);
+  // Check if the number of retained objects is expected
+  // expect(await countObjects(page)).to.equal(0);
 
-    await browser.close();
+  await browser.close();
 })();
 ```
 [Source](measure-memory-leaks.js)
@@ -784,23 +784,22 @@ Puppeteer API: [setRequestInterception()](https://pptr.dev/#?product=Puppeteer&v
 import puppeteer from 'puppeteer';
 
 (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-    await page.setRequestInterception(true);
-    
-    page.on('request', (req) => {
-        if (req.resourceType() === 'image'){
-            req.abort();
-        }
-        else {
-            req.continue();
-        }
-    });
+  await page.setRequestInterception(true);
+  
+  page.on('request', (req) => {
+    if (req.resourceType() === 'image'){
+      req.abort();
+    } else {
+      req.continue();
+    }
+  });
 
-    await page.goto('https://bbc.com');
-    await page.screenshot({path: 'no-images.png', fullPage: true});
-    await browser.close();
+  await page.goto('https://bbc.com');
+  await page.screenshot({path: 'no-images.png', fullPage: true});
+  await browser.close();
 })();
 ```
 [Source](request-interception-block-images.js)
@@ -827,7 +826,7 @@ const path = require('path');
 
   await page.setRequestInterception(true);
 
-  page.on("request", interceptedRequest => {
+  page.on('request', interceptedRequest => {
     const url = interceptedRequest.url();
     console.log(`Intercepted ${url}`);
 
@@ -842,8 +841,8 @@ const path = require('path');
     }
   });
 
-  await page.goto(`https://pptr.dev/index.html`, {
-    waitUntil: "networkidle2"
+  await page.goto(remoteURL, {
+    waitUntil: 'networkidle2'
   });
 
   await page.screenshot({path: 'override.png', fullPage: true});

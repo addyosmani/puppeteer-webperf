@@ -65,8 +65,8 @@ async function getCLS(url) {
     const cls = await page.evaluate(() => {
       return window.cumulativeLayoutShiftScore;
     });
-    return cls;
     browser.close();
+    return cls;
   } catch (error) {
     console.log(error);
     browser.close();
