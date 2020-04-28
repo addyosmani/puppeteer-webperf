@@ -34,13 +34,13 @@ Puppeteer API: [tracing.start()](https://pptr.dev/#?product=Puppeteer&show=api-t
 const puppeteer = require('puppeteer');
 
 (async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    // Drag and drop this JSON file to the DevTools Performance panel!
-    await page.tracing.start({ path: 'profile.json' });
-    await page.goto('https://pptr.dev');
-    await page.tracing.stop();
-    await browser.close();
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  // Drag and drop this JSON file to the DevTools Performance panel!
+  await page.tracing.start({path: 'profile.json'});
+  await page.goto('https://pptr.dev');
+  await page.tracing.stop();
+  await browser.close();
 })();
 ```
 
@@ -66,7 +66,7 @@ const puppeteer = require('puppeteer');
 })();
 ```
 
-[Source](devtools-profile.js)
+[Source](devtools-screenshots.js)
 
 <img src="/assets/images/Performance-tracing2.png" alt="DevTools screenshots in the performance panel"/>
 
