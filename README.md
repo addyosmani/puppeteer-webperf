@@ -1,4 +1,7 @@
-# Automating Web Perf measurement with Puppeteer
+<p align="center">
+<img src="https://user-images.githubusercontent.com/110953/80448571-91919100-88d1-11ea-936a-a8fb1785311e.jpg" alt="Puppeteer WebPerf logo" width="70%"/>
+<h1>Automating Web Perf measurement with Puppeteer</h1>
+</p>
 
 🕹 <a href="https://pptr.dev">Puppeteer</a> is a Node library which provides a high-level API to control headless Chrome or Chromium over the <a href="https://chromedevtools.github.io/devtools-protocol/">DevTools Protocol</a>. This repository has recipes for automating Web Performance measurement with Puppeteer.
 
