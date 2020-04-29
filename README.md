@@ -27,7 +27,7 @@
 * [Override requests with Request Interception](#request-interception)
 * [Block third-party domains](#block-third-parties)
 * [Code Coverage for JavaScript and CSS](#code-coverage)
-
+* [Save network requests to a HAR file](#har-file)
 
 <h3 id="devtools-profile">Get a DevTools performance trace for a page load</h3>
 
@@ -994,6 +994,34 @@ Output preview:
     percentUsed: '9.84%'
   }
 ```
+
+<h3 id="har-file">Save network requests to a HAR file</h3>
+
+💡 A [HAR](https://www.keycdn.com/support/what-is-a-har-file) (HTTP Archive) file is a JSON format for tracking performance issues. It keeps track of each resource loaded over the network by the browser including the timing information for each of these resources.
+
+You can use the [puppeteer-har](https://github.com/Everettss/puppeteer-har) package to generate a HAR file as follows:
+
+```js
+const puppeteer = require('puppeteer');
+const HAR = require('puppeteer-har');
+
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  const har = new HAR(page);
+  await har.start({ path: 'results.har' });
+  await page.goto('https://pptr.dev');
+  await har.stop();
+  await browser.close();
+})();
+```
+
+[Source](generate-har.js)
+
+HAR files can be imported back into Chrome DevTools for analysis or alternatively can be viewed in the [HAR Analyzer](https://toolbox.googleapps.com/apps/har_analyzer/) project.
+
+![Generated HAR file being loaded into the Network panel in DevTools](/assets/images/puppeteer-har.png)
 
 
 ## Read more

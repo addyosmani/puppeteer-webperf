@@ -9,7 +9,8 @@
   "private": false,
   "devDependencies": {
     "eslint": "^6.8.0",
-    "eslint-config-google": "^0.14.0"
+    "eslint-config-google": "^0.14.0",
+    "puppeteer-har": "^1.1.2"
   },
   "scripts": {
     "lint": "eslint . --fix"
