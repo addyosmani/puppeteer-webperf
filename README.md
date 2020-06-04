@@ -616,7 +616,7 @@ The <a href="https://web.dev/custom-metrics/">User Timing API</a> is a general p
 
 Outside of the performance metrics made available via the Navigation Timing API, single-page apps (SPA) often also have custom metrics for tracking other key moments. In Next.js, these could correspond to Time-to-Hydrate, SPA route transitions and so on.
 
-Next.js recently added the [https://github.com/zeit/next.js/pull/8480](unstable_onPerformanceData) helper for tracking client-side performance metrics using `performance.mark` and `performance.measure`. The below Puppeteer script allows us to collect this performance data once you patch your app to log key events to localStorage as in this [Glitch example](https://puppeteersandbox.com/w7u0RLhx) by Houssein Djirdeh.
+Next.js recently added the [`unstable_onPerformanceData`](https://github.com/zeit/next.js/pull/8480) helper for tracking client-side performance metrics using `performance.mark` and `performance.measure`. The below Puppeteer script allows us to collect this performance data once you patch your app to log key events to localStorage as in this [Glitch example](https://puppeteersandbox.com/w7u0RLhx) by Houssein Djirdeh.
 
 ```js
 const puppeteer = require('puppeteer');
