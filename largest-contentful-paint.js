@@ -8,7 +8,7 @@ const Good3G = {
   'latency': 40,
 };
 
-const phone = devices['Nexus 5X'];
+const phone = devices.devicesMap['Nexus 5X'];
 
 /**
  * Measure LCP
