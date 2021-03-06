@@ -225,7 +225,6 @@ lighthouseFromPuppeteer("https://pptr.dev", options);
 [Lighthouse](https://developers.google.com/web/tools/lighthouse/) exposes a number of [user-centric performance metrics](https://web.dev/user-centric-performance-metrics/). It's possible to pluck these metrics values out from the JSON response, as demonstrated below.
 
 ```js
-const fs = require('fs');
 const lighthouse = require('lighthouse');
 const puppeteer = require('puppeteer');
 
