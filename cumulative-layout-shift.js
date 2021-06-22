@@ -48,7 +48,7 @@ async function getCLS(url) {
     await client.send('Network.enable');
     await client.send('ServiceWorker.enable');
     await page.emulateNetworkConditions(puppeteer.networkConditions['Good 3G']);
-    await client.send('Emulation.setCPUThrottlingRate', {rate: 4});
+    await page.emulateCPUThrottling(4);
     await page.emulate(phone);
     // inject a function with the code from
     // https://web.dev/cls/#measure-cls-in-javascript
