@@ -1,13 +1,6 @@
 const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 
-const Good3G = {
-  'offline': false,
-  'downloadThroughput': 1.5 * 1024 * 1024 / 8,
-  'uploadThroughput': 750 * 1024 / 8,
-  'latency': 40,
-};
-
 const phone = devices.devicesMap['Nexus 5X'];
 
 /**
@@ -54,8 +47,8 @@ async function getCLS(url) {
 
     await client.send('Network.enable');
     await client.send('ServiceWorker.enable');
-    await client.send('Network.emulateNetworkConditions', Good3G);
-    await client.send('Emulation.setCPUThrottlingRate', {rate: 4});
+    await page.emulateNetworkConditions(puppeteer.networkConditions['Good 3G']);
+    await page.emulateCPUThrottling(4);
     await page.emulate(phone);
     // inject a function with the code from
     // https://web.dev/cls/#measure-cls-in-javascript

@@ -50,8 +50,8 @@ async function getLCP(url) {
 
     await client.send('Network.enable');
     await client.send('ServiceWorker.enable');
-    await client.send('Network.emulateNetworkConditions', Good3G);
-    await client.send('Emulation.setCPUThrottlingRate', {rate: 4});
+    await page.emulateNetworkConditions(puppeteer.networkConditions['Good 3G']);
+    await page.emulateCPUThrottling(4);
     await page.emulate(phone);
 
     await page.evaluateOnNewDocument(calculateLCP);
