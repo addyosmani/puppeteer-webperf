@@ -277,8 +277,7 @@ lighthouseFromPuppeteer("https://bbc.com", options);
 
 <h3 id="throttle-network">Emulate a slow network</h3>
 
-If you need to throttle the network connection, use `page.emulateNetworkConditions`. You can find the available parameters
-in the <a href="https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pageemulatenetworkconditionsnetworkconditions">puppeteer documentation</a>.
+If you need to throttle the network connection, use [Puppeteer’s `page.emulateNetworkConditions` API](https://github.com/puppeteer/puppeteer/blob/v8.0.0/docs/api.md#pageemulatenetworkconditionsnetworkconditions).
 
 🚨 Real network performance can be impacted by latency to towers, traffic patterns and the current radio activity. The <a href="https://github.com/GoogleChrome/lighthouse/blob/master/docs/throttling.md">Lighthouse guide to network throttling</a> covers in more detail what the differences are between simulated, request-level and packet-level throttling.
 
@@ -308,7 +307,7 @@ You can find details on the presets DevTools supports for Slow and Fast 3G in th
 
 <h3 id="throttle-network-cpu">Emulate a slow network and CPU</h3>
 
-CPU throttling allows you to simulate how a page performs on slower mobile devices. This can be done using `page.emulateNetworkConditions` via the Chrome DevTools Protocol.
+CPU throttling allows you to simulate how a page performs on slower mobile devices. This can be done using Puppeteer’s `page.emulateNetworkConditions` API.
 
 🚨 Real device CPU performance is impacted by many factors that are not trivial to emulate via the Chrome DevTools Protocol / Puppeteer. e.g core count, L1/L2 cache, thermal throttling impacting performance, architecture etc. Simulating CPU performance can be a good guideline, but ideally also verify any numbers you see on a real mobile device.
 
