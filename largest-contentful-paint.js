@@ -46,10 +46,6 @@ async function getLCP(url) {
 
   try {
     const page = await browser.newPage();
-    const client = await page.target().createCDPSession();
-
-    await client.send('Network.enable');
-    await client.send('ServiceWorker.enable');
     await page.emulateNetworkConditions(puppeteer.networkConditions['Good 3G']);
     await page.emulateCPUThrottling(4);
     await page.emulate(phone);
