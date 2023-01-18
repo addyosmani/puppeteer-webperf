@@ -31,7 +31,7 @@
 
 <h3 id="devtools-profile">Get a DevTools performance trace for a page load</h3>
 
-Puppeteer API: [tracing.start()](https://pptr.dev/#?product=Puppeteer&show=api-tracingstartoptions)
+Puppeteer API: [tracing.start()](https://pptr.dev/api/puppeteer.tracing.start)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -53,7 +53,7 @@ const puppeteer = require('puppeteer');
 
 <h3 id="devtools-screenshots">Get a DevTools trace with screenshots</h3>
 
-Puppeteer API: [tracing.start()](https://pptr.dev/#?product=Puppeteer&show=api-tracingstartoptions)
+Puppeteer API: [tracing.start()](https://pptr.dev/api/puppeteer.tracing.start)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -117,7 +117,7 @@ const fs = require('fs');
 
 <h3 id="devtools-interaction">Get a DevTools trace for a user interaction</h3>
 
-Puppeteer API: [page.click()](https://pptr.dev/#?product=Puppeteer&show=api-pageclickselector-options)
+Puppeteer API: [page.click()](https://pptr.dev/api/puppeteer.page.click)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -147,7 +147,7 @@ const puppeteer = require('puppeteer');
 
 The `page.metrics()` returns runtime metrics from the Chrome DevTools Protocol Performance.getMetrics() method, such as layout  duration, recalc-style durations and JS event listeners.
 
-Puppeteer API: [metrics()](https://pptr.dev/#?product=Puppeteer&show=api-pagemetrics)
+Puppeteer API: [metrics()](https://pptr.dev/api/puppeteer.page.metrics)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -174,7 +174,7 @@ const puppeteer = require('puppeteer');
 
 Generate a Lighthouse report for a URL and output it to a local HTML file. For more details, see the official guide to [using Puppeteer with Lighthouse](https://github.com/GoogleChrome/lighthouse/blob/master/docs/puppeteer.md).
 
-Puppeteer API: [connect()](https://pptr.dev/#?product=Puppeteer&show=api-puppeteerconnectoptions)
+Puppeteer API: [connect()](https://pptr.dev/#?product=Puppeteer&api-puppeteerconnectoptions)
 
 ```js
 const fs = require('fs');
@@ -336,7 +336,7 @@ const puppeteer = require('puppeteer');
 Situations with intermittant
 connectivity may mean JS is effectively disabled until it can be loaded. Testing a page with JS disabled allows you to simulate a 'worst case' for this.
 
-Puppeteer API: [setRequestInterception()](https://pptr.dev/#?product=Puppeteer&show=api-pagesetrequestinterceptionvalue)
+Puppeteer API: [setRequestInterception()](https://pptr.dev/api/puppeteer.page.setrequestinterception)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -660,7 +660,7 @@ const puppeteer = require('puppeteer');
 
 It's possible to open a remote debugging client and turn on DevTools-specific features, such as the frames-per-second (FPS) heads-up-display.
 
-Puppeteer API: [createCDPSession()](https://pptr.dev/#?product=Puppeteer&show=api-targetcreatecdpsession)
+Puppeteer API: [createCDPSession()](https://pptr.dev/api/puppeteer.target.createcdpsession/)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -690,7 +690,7 @@ const puppeteer = require('puppeteer');
 
 Checking the number of objects retained on the heap can be a good basic start to measuring memory leaks in JavaScript. In Puppeteer, `queryObjects()` can be used to count all the objects with the same prototype somewhere in the prototype chain.
 
-Puppeteer API: [queryObjects()](https://pptr.dev/#?product=Puppeteer&version=v2.1.1&show=api-pagequeryobjectsprototypehandle)
+Puppeteer API: [queryObjects()](https://pptr.dev/api/puppeteer.page.queryobjects)
 
 For a more detailed look at this topic, check out [automatically detecting memory-leaks with Puppeteer](https://media-codings.com/articles/automatically-detect-memory-leaks-with-puppeteer).
 
@@ -747,7 +747,7 @@ const countObjects = async (page) => {
 
 Request interception (overrides) allows you to modify network requests that are made by a page. 
 
-Puppeteer API: [setRequestInterception()](https://pptr.dev/#?product=Puppeteer&version=v3.0.0&show=api-pagesetrequestinterceptionvalue)
+Puppeteer API: [setRequestInterception()](https://pptr.dev/api/puppeteer.page.setrequestinterception)
 
 <h4>Block requests for images</h4>
 
@@ -832,7 +832,7 @@ While this example doesn't demonstrate it, you could use network overrides to ex
 
 You can block specific requests using Puppeteer's request interception feature. This can be helpful for profiling performance with specific domains blocked to see the before/after.
 
-Puppeteer API: [setRequestInterception](https://pptr.dev/#?product=Puppeteer&version=v2.1.1&show=api-pagesetrequestinterceptionvalue)
+Puppeteer API: [setRequestInterception](https://pptr.dev/api/puppeteer.page.setrequestinterception)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -890,7 +890,7 @@ const puppeteer = require('puppeteer');
 
 <h3 id="code-coverage">Code Coverage for JavaScript and CSS</h3>
 
-Puppeteer API: [page.coverage.startJSCoverage()](https://pptr.dev/#?product=Puppeteer&version=v3.0.1&show=api-coveragestartjscoverageoptions)
+Puppeteer API: [page.coverage.startJSCoverage()](https://pptr.dev/api/puppeteer.coverage.startjscoverage/)
 
 ```js
 const puppeteer = require('puppeteer');
