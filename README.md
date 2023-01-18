@@ -147,7 +147,7 @@ const puppeteer = require('puppeteer');
 
 The `page.metrics()` returns runtime metrics from the Chrome DevTools Protocol Performance.getMetrics() method, such as layout  duration, recalc-style durations and JS event listeners.
 
-Puppeteer API: [metrics()](https://pptr.dev/#?product=Puppeteer&show=api-pagemetrics)
+Puppeteer API: [metrics()](https://pptr.dev/api/puppeteer.page.metrics)
 
 ```js
 const puppeteer = require('puppeteer');
@@ -174,7 +174,7 @@ const puppeteer = require('puppeteer');
 
 Generate a Lighthouse report for a URL and output it to a local HTML file. For more details, see the official guide to [using Puppeteer with Lighthouse](https://github.com/GoogleChrome/lighthouse/blob/master/docs/puppeteer.md).
 
-Puppeteer API: [connect()](https://pptr.dev/#?product=Puppeteer&show=api-puppeteerconnectoptions)
+Puppeteer API: [connect()](https://pptr.dev/#?product=Puppeteer&api-puppeteerconnectoptions)
 
 ```js
 const fs = require('fs');
